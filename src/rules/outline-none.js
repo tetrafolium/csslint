@@ -36,8 +36,8 @@ CSSLint.addRule({
     function endRule() {
       if (lastRule) {
         if (lastRule.outline) {
-          if (lastRule.selectors.toString().toLowerCase().indexOf(":focus") ===
-              -1) {
+          if (lastRule.selectors.toString().toLowerCase().indexOf(":focus") ===-1
+          ) {
             reporter.report("Outlines should only be modified using :focus.",
                             lastRule.line, lastRule.col, rule);
           } else if (lastRule.propCount === 1) {
@@ -61,8 +61,9 @@ CSSLint.addRule({
 
       if (lastRule) {
         lastRule.propCount++;
-        if (name === "outline" &&
-            (value.toString() === "none" || value.toString() === "0")) {
+        if (name === "outline" 
+            && (value.toString() === "none" || value.toString() === "0")
+        ) {
           lastRule.outline = true;
         }
       }

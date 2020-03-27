@@ -114,8 +114,9 @@ Reporter.prototype = {
     "use strict";
 
     // Check if rule violation should be allowed
-    if (this.allow.hasOwnProperty(line) &&
-        this.allow[line].hasOwnProperty(rule.id)) {
+    if (this.allow.hasOwnProperty(line) 
+        && this.allow[line].hasOwnProperty(rule.id)
+    ) {
       return;
     }
 

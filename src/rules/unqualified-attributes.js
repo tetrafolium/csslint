@@ -40,8 +40,9 @@ CSSLint.addRule({
           if (!selectorContainsClassOrId) {
             for (k = 0; k < part.modifiers.length; k++) {
               modifier = part.modifiers[k];
-              if (modifier.type === "attribute" &&
-                  (!part.elementName || part.elementName === "*")) {
+              if (modifier.type === "attribute" 
+                  && (!part.elementName || part.elementName === "*")
+              ) {
                 reporter.report(rule.desc, part.line, part.col, rule);
               }
             }

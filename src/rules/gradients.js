@@ -23,7 +23,8 @@ CSSLint.addRule({
 
     parser.addListener("property", function(event) {
       if (/\-(moz|o|webkit)(?:\-(?:linear|radial))\-gradient/i.test(
-              event.value)) {
+              event.value)
+      ) {
         gradients[RegExp.$1] = 1;
       } else if (/\-webkit\-gradient/i.test(event.value)) {
         gradients.oldWebkit = 1;

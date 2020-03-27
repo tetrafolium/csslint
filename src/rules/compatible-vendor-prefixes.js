@@ -113,8 +113,9 @@ CSSLint.addRule({
       if (CSSLint.Util.indexOf(applyTo, name.text) > -1) {
 
         // e.g., -moz-transform is okay to be alone in @-moz-keyframes
-        if (!inKeyFrame || typeof inKeyFrame !== "string" ||
-            name.text.indexOf("-" + inKeyFrame + "-") !== 0) {
+        if (!inKeyFrame || typeof inKeyFrame !== "string" 
+            || name.text.indexOf("-" + inKeyFrame + "-") !== 0
+        ) {
           properties.push(name);
         }
       }
@@ -143,7 +144,8 @@ CSSLint.addRule({
                 };
               }
               if (CSSLint.Util.indexOf(propertyGroups[prop].actual,
-                                       name.text) === -1) {
+                                       name.text) === -1
+              ) {
                 propertyGroups[prop].actual.push(name.text);
                 propertyGroups[prop].actualNodes.push(name);
               }

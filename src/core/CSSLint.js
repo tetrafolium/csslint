@@ -191,8 +191,9 @@ var CSSLint = (function() {
     var ignoreStart = null, ignoreEnd = null;
     CSSLint.Util.forEach(lines, function(line, lineno) {
       // Keep oldest, "unclosest" ignore:start
-      if (ignoreStart === null &&
-          line.match(/\/\*[ \t]*csslint[ \t]+ignore:start[ \t]*\*\//i)) {
+      if (ignoreStart === null 
+          && line.match(/\/\*[ \t]*csslint[ \t]+ignore:start[ \t]*\*\//i)
+      ) {
         ignoreStart = lineno;
       }
 

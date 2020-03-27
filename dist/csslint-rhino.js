@@ -55,10 +55,12 @@ var CSSLint = (function() {
         if (!n[o]) {
           if (!t[o]) {
             var a = typeof require == "function" && require;
-            if (!u && a)
+            if (!u && a) {
               return a(o, !0);
-            if (i)
+            }
+            if (i) {
               return i(o, !0);
+            }
             var f = new Error("Cannot find module '" + o + "'");
             throw f.code = "MODULE_NOT_FOUND", f
           }
@@ -71,8 +73,9 @@ var CSSLint = (function() {
         return n[o].exports
       }
       var i = typeof require == "function" && require;
-      for (var o = 0; o < r.length; o++)
+      for (var o = 0; o < r.length; o++) {
         s(r[o]);
+      }
       return s
     })({
       1 : [
@@ -574,7 +577,8 @@ var CSSLint = (function() {
                         if (tryMatch(matchCount +
                                      ((required === false || required[i])
                                           ? 1
-                                          : 0))) {
+                                          : 0))
+                        ) {
                           expression.drop();
                           return true;
                         }
@@ -1350,8 +1354,9 @@ var CSSLint = (function() {
 
                     this._readWhitespace();
 
-                    if (tokenStream.peek() === Tokens.IDENT ||
-                        tokenStream.peek() === Tokens.LPAREN) {
+                    if (tokenStream.peek() === Tokens.IDENT 
+                        || tokenStream.peek() === Tokens.LPAREN
+                    ) {
                       mediaList.push(this._media_query());
                     }
 
@@ -1614,7 +1619,8 @@ var CSSLint = (function() {
                           Tokens.LEFTMIDDLE_SYM, Tokens.LEFTBOTTOM_SYM,
                           Tokens.RIGHTTOP_SYM, Tokens.RIGHTMIDDLE_SYM,
                           Tokens.RIGHTBOTTOM_SYM
-                        ])) {
+                        ])
+                    ) {
                       return SyntaxUnit.fromToken(tokenStream.token());
                     } else {
                       return null;
@@ -1790,10 +1796,11 @@ var CSSLint = (function() {
 
                     var tokenStream = this._tokenStream, token = null;
 
-                    if (tokenStream.match([ Tokens.SLASH, Tokens.COMMA ]) ||
-                        (inFunction &&
-                         tokenStream.match(
-                             [ Tokens.PLUS, Tokens.STAR, Tokens.MINUS ]))) {
+                    if (tokenStream.match([ Tokens.SLASH, Tokens.COMMA ]) 
+                        || (inFunction 
+                        && tokenStream.match(
+                             [ Tokens.PLUS, Tokens.STAR, Tokens.MINUS ]))
+                    ) {
                       token = tokenStream.token();
                       this._readWhitespace();
                     }
@@ -1810,7 +1817,8 @@ var CSSLint = (function() {
                     var tokenStream = this._tokenStream, value = null, token;
 
                     if (tokenStream.match(
-                            [ Tokens.PLUS, Tokens.GREATER, Tokens.TILDE ])) {
+                            [ Tokens.PLUS, Tokens.GREATER, Tokens.TILDE ])
+                    ) {
                       token = tokenStream.token();
                       value = new Combinator(token.value, token.startLine,
                                              token.startCol);
@@ -1847,8 +1855,9 @@ var CSSLint = (function() {
                         hack = null, tokenValue, token, line, col;
 
                     // check for star hack - throws error if not allowed
-                    if (tokenStream.peek() === Tokens.STAR &&
-                        this.options.starHack) {
+                    if (tokenStream.peek() === Tokens.STAR 
+                        && this.options.starHack
+                    ) {
                       tokenStream.get();
                       token = tokenStream.token();
                       hack = token.value;
@@ -1862,8 +1871,9 @@ var CSSLint = (function() {
 
                       // check for underscore hack - no error if not allowed
                       // because it's valid CSS syntax
-                      if (tokenValue.charAt(0) === "_" &&
-                          this.options.underscoreHack) {
+                      if (tokenValue.charAt(0) === "_" 
+                          && this.options.underscoreHack
+                      ) {
                         hack = "_";
                         tokenValue = tokenValue.substring(1);
                       }
@@ -2226,8 +2236,9 @@ var CSSLint = (function() {
                     var tokenStream = this._tokenStream, value = "";
 
                     // verify that this is a namespace prefix
-                    if (tokenStream.LA(1) === Tokens.PIPE ||
-                        tokenStream.LA(2) === Tokens.PIPE) {
+                    if (tokenStream.LA(1) === Tokens.PIPE 
+                        || tokenStream.LA(2) === Tokens.PIPE
+                    ) {
 
                       if (tokenStream.match([ Tokens.IDENT, Tokens.STAR ])) {
                         value += tokenStream.token().value;
@@ -2298,7 +2309,8 @@ var CSSLint = (function() {
                             Tokens.PREFIXMATCH, Tokens.SUFFIXMATCH,
                             Tokens.SUBSTRINGMATCH, Tokens.EQUALS,
                             Tokens.INCLUDES, Tokens.DASHMATCH
-                          ])) {
+                          ])
+                      ) {
 
                         value += tokenStream.token().value;
                         value += this._readWhitespace();
@@ -2521,9 +2533,10 @@ var CSSLint = (function() {
                        * _property or *property as invalid properties.
                        */
                       propertyName = property.toString();
-                      if (this.options.starHack && property.hack === "*" ||
-                          this.options.underscoreHack &&
-                              property.hack === "_") {
+                      if (this.options.starHack && property.hack === "*" 
+                          || this.options.underscoreHack 
+                          && property.hack === "_"
+                      ) {
 
                         propertyName = property.text;
                       }
@@ -2639,8 +2652,9 @@ var CSSLint = (function() {
                     }
 
                     // exception for IE filters
-                    if (tokenStream.peek() === Tokens.IE_FUNCTION &&
-                        this.options.ieFilters) {
+                    if (tokenStream.peek() === Tokens.IE_FUNCTION 
+                        && this.options.ieFilters
+                    ) {
 
                       value = this._ie_function();
                       if (unary === null) {
@@ -2651,7 +2665,8 @@ var CSSLint = (function() {
                       // see if it's a simple block
                     } else if (inFunction && tokenStream.match([
                                  Tokens.LPAREN, Tokens.LBRACE, Tokens.LBRACKET
-                               ])) {
+                               ])
+                    ) {
 
                       token = tokenStream.token();
                       endChar = token.endChar;
@@ -2670,7 +2685,8 @@ var CSSLint = (function() {
                                  Tokens.LENGTH, Tokens.ANGLE, Tokens.TIME,
                                  Tokens.FREQ, Tokens.STRING, Tokens.IDENT,
                                  Tokens.URI, Tokens.UNICODE_RANGE
-                               ])) {
+                               ])
+                    ) {
 
                       value = tokenStream.token().value;
                       if (unary === null) {
@@ -2701,8 +2717,9 @@ var CSSLint = (function() {
                            * This checks for alpha(opacity=0) style of IE
                            * functions. IE_FUNCTION only presents progid: style.
                            */
-                          if (tokenStream.LA(3) === Tokens.EQUALS &&
-                              this.options.ieFilters) {
+                          if (tokenStream.LA(3) === Tokens.EQUALS 
+                              && this.options.ieFilters
+                          ) {
                             value = this._ie_function();
                           } else {
                             value = this._function();
@@ -2752,8 +2769,9 @@ var CSSLint = (function() {
                       functionText += expr;
 
                       // START: Horrible hack in case it's an IE filter
-                      if (this.options.ieFilters &&
-                          tokenStream.peek() === Tokens.EQUALS) {
+                      if (this.options.ieFilters 
+                          && tokenStream.peek() === Tokens.EQUALS
+                      ) {
                         do {
 
                           if (this._readWhitespace()) {
@@ -2805,7 +2823,8 @@ var CSSLint = (function() {
 
                     // IE function can begin like a regular function, too
                     if (tokenStream.match(
-                            [ Tokens.IE_FUNCTION, Tokens.FUNCTION ])) {
+                            [ Tokens.IE_FUNCTION, Tokens.FUNCTION ])
+                    ) {
                       functionText = tokenStream.token().value;
 
                       do {
@@ -3081,8 +3100,9 @@ var CSSLint = (function() {
 
                       while (true) {
 
-                        if (tokenStream.match(Tokens.SEMICOLON) ||
-                            (readMargins && this._margin())) {
+                        if (tokenStream.match(Tokens.SEMICOLON) 
+                            || (readMargins && this._margin())
+                        ) {
                           // noop
                         } else if (this._declaration()) {
                           if (!tokenStream.match(Tokens.SEMICOLON)) {
@@ -4286,42 +4306,42 @@ var CSSLint = (function() {
                 this.blue = parseInt(temp.substring(4, 6), 16);
               }
             } else if (/^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i.test(
-                           text)) { // rgb() color with absolute numbers
+                           text)
+            ) { // rgb() color with absolute numbers
               this.type = "color";
               this.red = +RegExp.$1;
               this.green = +RegExp.$2;
               this.blue = +RegExp.$3;
             } else if (/^rgb\(\s*(\d+)%\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)/i.test(
-                           text)) { // rgb() color with percentages
+                           text)
+            ) { // rgb() color with percentages
               this.type = "color";
               this.red = +RegExp.$1 * 255 / 100;
               this.green = +RegExp.$2 * 255 / 100;
               this.blue = +RegExp.$3 * 255 / 100;
-            } else if (
-                /^rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d\.]+)\s*\)/i
-                    .test(text)) { // rgba() color with absolute numbers
+            } else if (/^rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d\.]+)\s*\)/i                .test(text)
+            ) { // rgba() color with absolute numbers
               this.type = "color";
               this.red = +RegExp.$1;
               this.green = +RegExp.$2;
               this.blue = +RegExp.$3;
               this.alpha = +RegExp.$4;
-            } else if (
-                /^rgba\(\s*(\d+)%\s*,\s*(\d+)%\s*,\s*(\d+)%\s*,\s*([\d\.]+)\s*\)/i
-                    .test(text)) { // rgba() color with percentages
+            } else if (/^rgba\(\s*(\d+)%\s*,\s*(\d+)%\s*,\s*(\d+)%\s*,\s*([\d\.]+)\s*\)/i                .test(text)
+            ) { // rgba() color with percentages
               this.type = "color";
               this.red = +RegExp.$1 * 255 / 100;
               this.green = +RegExp.$2 * 255 / 100;
               this.blue = +RegExp.$3 * 255 / 100;
               this.alpha = +RegExp.$4;
             } else if (/^hsl\(\s*(\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)/i.test(
-                           text)) { // hsl()
+                           text)
+            ) { // hsl()
               this.type = "color";
               this.hue = +RegExp.$1;
               this.saturation = +RegExp.$2 / 100;
               this.lightness = +RegExp.$3 / 100;
-            } else if (
-                /^hsla\(\s*(\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*,\s*([\d\.]+)\s*\)/i
-                    .test(text)) { // hsla() color with percentages
+            } else if (/^hsla\(\s*(\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*,\s*([\d\.]+)\s*\)/i                .test(text)
+            ) { // hsla() color with percentages
               this.type = "color";
               this.hue = +RegExp.$1;
               this.saturation = +RegExp.$2 / 100;
@@ -4335,14 +4355,12 @@ var CSSLint = (function() {
               this.type = "function";
               this.name = RegExp.$1;
               this.value = text;
-            } else if (
-                /^"([^\n\r\f\\"]|\\\r\n|\\[^\r0-9a-f]|\\[0-9a-f]{1,6}(\r\n|[ \n\r\t\f])?)*"/i
-                    .test(text)) { // double-quoted string
+            } else if (/^"([^\n\r\f\\"]|\\\r\n|\\[^\r0-9a-f]|\\[0-9a-f]{1,6}(\r\n|[ \n\r\t\f])?)*"/i                .test(text)
+            ) { // double-quoted string
               this.type = "string";
               this.value = PropertyValuePart.parseString(text);
-            } else if (
-                /^'([^\n\r\f\\']|\\\r\n|\\[^\r0-9a-f]|\\[0-9a-f]{1,6}(\r\n|[ \n\r\t\f])?)*'/i
-                    .test(text)) { // single-quoted string
+            } else if (/^'([^\n\r\f\\']|\\\r\n|\\[^\r0-9a-f]|\\[0-9a-f]{1,6}(\r\n|[ \n\r\t\f])?)*'/i                .test(text)
+            ) { // single-quoted string
               this.type = "string";
               this.value = PropertyValuePart.parseString(text);
             } else if (Colors[text.toLowerCase()]) { // named color
@@ -4355,7 +4373,8 @@ var CSSLint = (function() {
               this.type = "operator";
               this.value = text;
             } else if (/^-?[a-z_\u00A0-\uFFFF][a-z0-9\-_\u00A0-\uFFFF]*$/i.test(
-                           text)) {
+                           text)
+            ) {
               this.type = "identifier";
               this.value = text;
             }
@@ -4703,8 +4722,9 @@ var CSSLint = (function() {
                   elementName = part.elementName ? part.elementName.text : "",
                   modifier;
 
-              if (elementName &&
-                  elementName.charAt(elementName.length - 1) !== "*") {
+              if (elementName 
+                  && elementName.charAt(elementName.length - 1) !== "*"
+              ) {
                 d++;
               }
 
@@ -4913,8 +4933,8 @@ var CSSLint = (function() {
                  * - PERCENTAGE
                  */
                 case "-":
-                  if (reader.peek() ===
-                      "-") { // could be closing HTML-style comment
+                  if (reader.peek() ==="-"
+                  ) { // could be closing HTML-style comment
                     token = this.htmlCommentEndToken(c, startLine, startCol);
                   } else if (isNameStart(reader.peek())) {
                     token = this.identOrFunctionToken(c, startLine, startCol);
@@ -4999,7 +5019,7 @@ var CSSLint = (function() {
                    */
                   if (isDigit(c)) {
                     token = this.numberToken(c, startLine, startCol);
-                  } else
+                  } else {
 
                       /*
                        * Potential tokens:
@@ -5007,7 +5027,7 @@ var CSSLint = (function() {
                        */
                       if (isWhitespace(c)) {
                     token = this.whitespaceToken(c, startLine, startCol);
-                  } else
+                  } else {
 
                       /*
                        * Potential tokens:
@@ -5022,6 +5042,8 @@ var CSSLint = (function() {
                      * - PLUS
                      */
                     token = this.charToken(c, startLine, startCol);
+                  }
+                  }
                   }
                 }
 
@@ -5383,8 +5405,8 @@ var CSSLint = (function() {
                 ident = this.readName(reader.read());
                 value += ident;
 
-                if (/^em$|^ex$|^px$|^gd$|^rem$|^vw$|^vh$|^vmax$|^vmin$|^ch$|^cm$|^mm$|^in$|^pt$|^pc$/i
-                        .test(ident)) {
+                if (/^em$|^ex$|^px$|^gd$|^rem$|^vw$|^vh$|^vmax$|^vmin$|^ch$|^cm$|^mm$|^in$|^pt$|^pc$/i                    .test(ident)
+                ) {
                   tt = Tokens.LENGTH;
                 } else if (/^deg|^rad$|^grad$|^turn$/i.test(ident)) {
                   tt = Tokens.ANGLE;
@@ -5734,8 +5756,9 @@ var CSSLint = (function() {
                   comment += c;
 
                   // look for end of comment
-                  if (comment.length > 2 && c === "*" &&
-                      reader.peek() === "/") {
+                  if (comment.length > 2 && c === "*" 
+                      && reader.peek() === "/"
+                  ) {
                     comment += reader.read();
                     break;
                   }
@@ -5969,7 +5992,8 @@ var CSSLint = (function() {
                 // All properties accept some CSS-wide values.
                 // https://drafts.csswg.org/css-values-3/#common-keywords
                 if (ValidationTypes.isAny(expression,
-                                          "inherit | initial | unset")) {
+                                          "inherit | initial | unset")
+                ) {
                   if (expression.hasNext()) {
                     part = expression.next();
                     throw new ValidationError(
@@ -6293,8 +6317,9 @@ var CSSLint = (function() {
               "<integer>" : function(part) { return part.type === "integer"; },
 
               "<length>" : function(part) {
-                if (part.type === "function" &&
-                    /^(?:\-(?:ms|moz|o|webkit)\-)?calc/i.test(part)) {
+                if (part.type === "function" 
+                    && /^(?:\-(?:ms|moz|o|webkit)\-)?calc/i.test(part)
+                ) {
                   return true;
                 } else {
                   return part.type === "length" || part.type === "number" ||
@@ -7272,8 +7297,9 @@ var CSSLint = (function() {
               var tokenInfo = this._tokenData, i = 0, token, info;
 
               // check the lookahead buffer first
-              if (this._lt.length && this._ltIndex >= 0 &&
-                  this._ltIndex < this._lt.length) {
+              if (this._lt.length && this._ltIndex >= 0 
+                  && this._ltIndex < this._lt.length
+              ) {
 
                 i++;
                 this._token = this._lt[this._ltIndex++];
@@ -7289,8 +7315,9 @@ var CSSLint = (function() {
                 }
 
                 // here be dragons
-                if ((info.channel === undefined || channel === info.channel) &&
-                    this._ltIndex <= this._lt.length) {
+                if ((info.channel === undefined || channel === info.channel) 
+                    && this._ltIndex <= this._lt.length
+                ) {
                   this._ltIndexCache.push(i);
                   return this._token.type;
                 }
@@ -7334,8 +7361,9 @@ var CSSLint = (function() {
                * current channel.
                */
               info = tokenInfo[token.type];
-              if (info && (info.hide || (info.channel !== undefined &&
-                                         channel !== info.channel))) {
+              if (info && (info.hide || (info.channel !== undefined 
+                  && channel !== info.channel))
+              ) {
                 return this.get(channel);
               } else {
                 // return just the type
@@ -7565,20 +7593,24 @@ var CSSLint = (function() {
 
       var useBuffer = typeof Buffer != 'undefined';
 
-      if (typeof circular == 'undefined')
+      if (typeof circular == 'undefined') {
         circular = true;
+      }
 
-      if (typeof depth == 'undefined')
+      if (typeof depth == 'undefined') {
         depth = Infinity;
+      }
 
       // recurse this function so we don't reset allParents and allChildren
       function _clone(parent, depth) {
         // cloning null always returns null
-        if (parent === null)
+        if (parent === null) {
           return null;
+        }
 
-        if (depth === 0)
+        if (depth === 0) {
           return parent;
+        }
 
         var child;
         var proto;
@@ -7599,8 +7631,9 @@ var CSSLint = (function() {
           child = [];
         } else if (clone.__isRegExp(parent)) {
           child = new RegExp(parent.source, __getRegExpFlags(parent));
-          if (parent.lastIndex)
+          if (parent.lastIndex) {
             child.lastIndex = parent.lastIndex;
+          }
         } else if (clone.__isDate(parent)) {
           child = new Date(parent.getTime());
         } else if (useBuffer && Buffer.isBuffer(parent)) {
@@ -7700,8 +7733,9 @@ var CSSLint = (function() {
      * this works.
      */
     clone.clonePrototype = function clonePrototype(parent) {
-      if (parent === null)
+      if (parent === null) {
         return null;
+      }
 
       var c = function() {};
       c.prototype = parent;
@@ -7730,12 +7764,15 @@ var CSSLint = (function() {
 
     function __getRegExpFlags(re) {
       var flags = '';
-      if (re.global)
+      if (re.global) {
         flags += 'g';
-      if (re.ignoreCase)
+      }
+      if (re.ignoreCase) {
         flags += 'i';
-      if (re.multiline)
+      }
+      if (re.multiline) {
         flags += 'm';
+      }
       return flags;
     }
     clone.__getRegExpFlags = __getRegExpFlags;
@@ -7940,8 +7977,9 @@ var CSSLint = (function() {
       var ignoreStart = null, ignoreEnd = null;
       CSSLint.Util.forEach(lines, function(line, lineno) {
         // Keep oldest, "unclosest" ignore:start
-        if (ignoreStart === null &&
-            line.match(/\/\*[ \t]*csslint[ \t]+ignore:start[ \t]*\*\//i)) {
+        if (ignoreStart === null 
+            && line.match(/\/\*[ \t]*csslint[ \t]+ignore:start[ \t]*\*\//i)
+        ) {
           ignoreStart = lineno;
         }
 
@@ -8134,8 +8172,9 @@ var CSSLint = (function() {
       "use strict";
 
       // Check if rule violation should be allowed
-      if (this.allow.hasOwnProperty(line) &&
-          this.allow[line].hasOwnProperty(rule.id)) {
+      if (this.allow.hasOwnProperty(line) 
+          && this.allow[line].hasOwnProperty(rule.id)
+      ) {
         return;
       }
 
@@ -8373,8 +8412,9 @@ var CSSLint = (function() {
               if (heightProperties.hasOwnProperty(prop) && properties[prop]) {
                 value = properties[prop].value;
                 // special case for padding
-                if (!(prop === "padding" && value.parts.length === 2 &&
-                      value.parts[0].value === 0)) {
+                if (!(prop === "padding" && value.parts.length === 2 
+                    && value.parts[0].value === 0)
+                ) {
                   reporter.report(
                       "Using height with " + prop +
                           " can sometimes make elements larger than you expect.",
@@ -8389,8 +8429,9 @@ var CSSLint = (function() {
               if (widthProperties.hasOwnProperty(prop) && properties[prop]) {
                 value = properties[prop].value;
 
-                if (!(prop === "padding" && value.parts.length === 2 &&
-                      value.parts[1].value === 0)) {
+                if (!(prop === "padding" && value.parts.length === 2 
+                    && value.parts[1].value === 0)
+                ) {
                   reporter.report(
                       "Using width with " + prop +
                           " can sometimes make elements larger than you expect.",
@@ -8413,8 +8454,9 @@ var CSSLint = (function() {
         var name = event.property.text.toLowerCase();
 
         if (heightProperties[name] || widthProperties[name]) {
-          if (!/^0\S*$/.test(event.value) &&
-              !(name === "border" && event.value.toString() === "none")) {
+          if (!/^0\S*$/.test(event.value) 
+              && !(name === "border" && event.value.toString() === "none")
+          ) {
             properties[name] = {
               line : event.property.line,
               col : event.property.col,
@@ -8422,8 +8464,9 @@ var CSSLint = (function() {
             };
           }
         } else {
-          if (/^(width|height)/i.test(name) &&
-              /^(length|percentage)/.test(event.value.parts[0].type)) {
+          if (/^(width|height)/i.test(name) 
+              && /^(length|percentage)/.test(event.value.parts[0].type)
+          ) {
             properties[name] = 1;
           } else if (name === "box-sizing") {
             boxSizing = true;
@@ -8655,8 +8698,9 @@ var CSSLint = (function() {
         if (CSSLint.Util.indexOf(applyTo, name.text) > -1) {
 
           // e.g., -moz-transform is okay to be alone in @-moz-keyframes
-          if (!inKeyFrame || typeof inKeyFrame !== "string" ||
-              name.text.indexOf("-" + inKeyFrame + "-") !== 0) {
+          if (!inKeyFrame || typeof inKeyFrame !== "string" 
+              || name.text.indexOf("-" + inKeyFrame + "-") !== 0
+          ) {
             properties.push(name);
           }
         }
@@ -8685,7 +8729,8 @@ var CSSLint = (function() {
                   };
                 }
                 if (CSSLint.Util.indexOf(propertyGroups[prop].actual,
-                                         name.text) === -1) {
+                                         name.text) === -1
+                ) {
                   propertyGroups[prop].actual.push(name.text);
                   propertyGroups[prop].actualNodes.push(name);
                 }
@@ -8770,9 +8815,9 @@ var CSSLint = (function() {
 
       function reportProperty(name, display, msg) {
         if (properties[name]) {
-          if (typeof propertiesToCheck[name] !== "string" ||
-              properties[name].value.toLowerCase() !==
-                  propertiesToCheck[name]) {
+          if (typeof propertiesToCheck[name] !== "string" 
+              || properties[name].value.toLowerCase() !==              propertiesToCheck[name]
+          ) {
             reporter.report(
                 msg || name + " can't be used with display: " + display + ".",
                 properties[name].line, properties[name].col, rule);
@@ -8932,8 +8977,9 @@ var CSSLint = (function() {
       parser.addListener("property", function(event) {
         var property = event.property, name = property.text.toLowerCase();
 
-        if (properties[name] &&
-            (lastProperty !== name || properties[name] === event.value.text)) {
+        if (properties[name] 
+            && (lastProperty !== name || properties[name] === event.value.text)
+        ) {
           reporter.report("Duplicate property '" + event.property + "' found.",
                           event.line, event.col, rule);
         }
@@ -9054,9 +9100,10 @@ var CSSLint = (function() {
                   colorType = RegExp.$1.toUpperCase();
                 }
 
-                if (!lastProperty ||
-                    (lastProperty.property.text.toLowerCase() !== name ||
-                     lastProperty.colorType !== "compat")) {
+                if (!lastProperty 
+                    || (lastProperty.property.text.toLowerCase() !== name 
+                    || lastProperty.colorType !== "compat")
+                ) {
                   reporter.report("Fallback " + name +
                                       " (hex or RGB) should precede " +
                                       colorType + " " + name + ".",
@@ -9099,8 +9146,9 @@ var CSSLint = (function() {
 
       // count how many times "float" is used
       parser.addListener("property", function(event) {
-        if (event.property.text.toLowerCase() === "float" &&
-            event.value.text.toLowerCase() !== "none") {
+        if (event.property.text.toLowerCase() === "float" 
+            && event.value.text.toLowerCase() !== "none"
+        ) {
           count++;
         }
       });
@@ -9214,7 +9262,8 @@ var CSSLint = (function() {
 
       parser.addListener("property", function(event) {
         if (/\-(moz|o|webkit)(?:\-(?:linear|radial))\-gradient/i.test(
-                event.value)) {
+                event.value)
+        ) {
           gradients[RegExp.$1] = 1;
         } else if (/\-webkit\-gradient/i.test(event.value)) {
           gradients.oldWebkit = 1;
@@ -9532,7 +9581,8 @@ var CSSLint = (function() {
         if (lastRule) {
           if (lastRule.outline) {
             if (lastRule.selectors.toString().toLowerCase().indexOf(
-                    ":focus") === -1) {
+                    ":focus") === -1
+            ) {
               reporter.report("Outlines should only be modified using :focus.",
                               lastRule.line, lastRule.col, rule);
             } else if (lastRule.propCount === 1) {
@@ -9556,8 +9606,9 @@ var CSSLint = (function() {
 
         if (lastRule) {
           lastRule.propCount++;
-          if (name === "outline" &&
-              (value.toString() === "none" || value.toString() === "0")) {
+          if (name === "outline" 
+              && (value.toString() === "none" || value.toString() === "0")
+          ) {
             lastRule.outline = true;
           }
         }
@@ -9627,8 +9678,9 @@ var CSSLint = (function() {
           if (classes.hasOwnProperty(prop)) {
 
             // one use means that this is overqualified
-            if (classes[prop].length === 1 &&
-                classes[prop][0].part.elementName) {
+            if (classes[prop].length === 1 
+                && classes[prop][0].part.elementName
+            ) {
               reporter.report(
                   "Element (" + classes[prop][0].part +
                       ") is overqualified, just use " +
@@ -9714,8 +9766,9 @@ var CSSLint = (function() {
           for (j = 0; j < selector.parts.length; j++) {
             part = selector.parts[j];
             if (part.type === parser.SELECTOR_PART_TYPE) {
-              if (part.elementName &&
-                  /h[1-6]/.test(part.elementName.toString()) && j > 0) {
+              if (part.elementName 
+                  && /h[1-6]/.test(part.elementName.toString()) && j > 0
+              ) {
                 reporter.report("Heading (" + part.elementName +
                                     ") should not be qualified.",
                                 part.line, part.col, rule);
@@ -10136,8 +10189,9 @@ var CSSLint = (function() {
           selector = selectors[i];
           part = selector.parts[selector.parts.length - 1];
 
-          if (part.elementName &&
-              /(h[1-6])/i.test(part.elementName.toString())) {
+          if (part.elementName 
+              && /(h[1-6])/i.test(part.elementName.toString())
+          ) {
 
             for (j = 0; j < part.modifiers.length; j++) {
               if (part.modifiers[j].type === "pseudo") {
@@ -10255,8 +10309,9 @@ var CSSLint = (function() {
             if (!selectorContainsClassOrId) {
               for (k = 0; k < part.modifiers.length; k++) {
                 modifier = part.modifiers[k];
-                if (modifier.type === "attribute" &&
-                    (!part.elementName || part.elementName === "*")) {
+                if (modifier.type === "attribute" 
+                    && (!part.elementName || part.elementName === "*")
+                ) {
                   reporter.report(rule.desc, part.line, part.col, rule);
                 }
               }
@@ -10439,8 +10494,9 @@ var CSSLint = (function() {
         var parts = event.value.parts, i = 0, len = parts.length;
 
         while (i < len) {
-          if ((parts[i].units || parts[i].type === "percentage") &&
-              parts[i].value === 0 && parts[i].type !== "time") {
+          if ((parts[i].units || parts[i].type === "percentage") 
+              && parts[i].value === 0 && parts[i].type !== "time"
+          ) {
             reporter.report("Values of 0 shouldn't have units specified.",
                             parts[i].line, parts[i].col, rule);
           }

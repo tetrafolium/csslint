@@ -216,8 +216,9 @@ var CSSLint = (function() {
     var ignoreStart = null, ignoreEnd = null;
     CSSLint.Util.forEach(lines, function(line, lineno) {
       // Keep oldest, "unclosest" ignore:start
-      if (ignoreStart === null &&
-          line.match(/\/\*[ \t]*csslint[ \t]+ignore:start[ \t]*\*\//i)) {
+      if (ignoreStart === null 
+          && line.match(/\/\*[ \t]*csslint[ \t]+ignore:start[ \t]*\*\//i)
+      ) {
         ignoreStart = lineno;
       }
 
@@ -410,8 +411,9 @@ Reporter.prototype = {
     "use strict";
 
     // Check if rule violation should be allowed
-    if (this.allow.hasOwnProperty(line) &&
-        this.allow[line].hasOwnProperty(rule.id)) {
+    if (this.allow.hasOwnProperty(line) 
+        && this.allow[line].hasOwnProperty(rule.id)
+    ) {
       return;
     }
 
@@ -649,8 +651,9 @@ CSSLint.addRule({
             if (heightProperties.hasOwnProperty(prop) && properties[prop]) {
               value = properties[prop].value;
               // special case for padding
-              if (!(prop === "padding" && value.parts.length === 2 &&
-                    value.parts[0].value === 0)) {
+              if (!(prop === "padding" && value.parts.length === 2 
+                  && value.parts[0].value === 0)
+              ) {
                 reporter.report(
                     "Using height with " + prop +
                         " can sometimes make elements larger than you expect.",
@@ -665,8 +668,9 @@ CSSLint.addRule({
             if (widthProperties.hasOwnProperty(prop) && properties[prop]) {
               value = properties[prop].value;
 
-              if (!(prop === "padding" && value.parts.length === 2 &&
-                    value.parts[1].value === 0)) {
+              if (!(prop === "padding" && value.parts.length === 2 
+                  && value.parts[1].value === 0)
+              ) {
                 reporter.report(
                     "Using width with " + prop +
                         " can sometimes make elements larger than you expect.",
@@ -689,8 +693,9 @@ CSSLint.addRule({
       var name = event.property.text.toLowerCase();
 
       if (heightProperties[name] || widthProperties[name]) {
-        if (!/^0\S*$/.test(event.value) &&
-            !(name === "border" && event.value.toString() === "none")) {
+        if (!/^0\S*$/.test(event.value) 
+            && !(name === "border" && event.value.toString() === "none")
+        ) {
           properties[name] = {
             line : event.property.line,
             col : event.property.col,
@@ -698,8 +703,9 @@ CSSLint.addRule({
           };
         }
       } else {
-        if (/^(width|height)/i.test(name) &&
-            /^(length|percentage)/.test(event.value.parts[0].type)) {
+        if (/^(width|height)/i.test(name) 
+            && /^(length|percentage)/.test(event.value.parts[0].type)
+        ) {
           properties[name] = 1;
         } else if (name === "box-sizing") {
           boxSizing = true;
@@ -930,8 +936,9 @@ CSSLint.addRule({
       if (CSSLint.Util.indexOf(applyTo, name.text) > -1) {
 
         // e.g., -moz-transform is okay to be alone in @-moz-keyframes
-        if (!inKeyFrame || typeof inKeyFrame !== "string" ||
-            name.text.indexOf("-" + inKeyFrame + "-") !== 0) {
+        if (!inKeyFrame || typeof inKeyFrame !== "string" 
+            || name.text.indexOf("-" + inKeyFrame + "-") !== 0
+        ) {
           properties.push(name);
         }
       }
@@ -960,7 +967,8 @@ CSSLint.addRule({
                 };
               }
               if (CSSLint.Util.indexOf(propertyGroups[prop].actual,
-                                       name.text) === -1) {
+                                       name.text) === -1
+              ) {
                 propertyGroups[prop].actual.push(name.text);
                 propertyGroups[prop].actualNodes.push(name);
               }
@@ -1044,8 +1052,9 @@ CSSLint.addRule({
 
     function reportProperty(name, display, msg) {
       if (properties[name]) {
-        if (typeof propertiesToCheck[name] !== "string" ||
-            properties[name].value.toLowerCase() !== propertiesToCheck[name]) {
+        if (typeof propertiesToCheck[name] !== "string" 
+            || properties[name].value.toLowerCase() !== propertiesToCheck[name]
+        ) {
           reporter.report(
               msg || name + " can't be used with display: " + display + ".",
               properties[name].line, properties[name].col, rule);
@@ -1204,8 +1213,9 @@ CSSLint.addRule({
     parser.addListener("property", function(event) {
       var property = event.property, name = property.text.toLowerCase();
 
-      if (properties[name] &&
-          (lastProperty !== name || properties[name] === event.value.text)) {
+      if (properties[name] 
+          && (lastProperty !== name || properties[name] === event.value.text)
+      ) {
         reporter.report("Duplicate property '" + event.property + "' found.",
                         event.line, event.col, rule);
       }
@@ -1325,9 +1335,10 @@ CSSLint.addRule({
                 colorType = RegExp.$1.toUpperCase();
               }
 
-              if (!lastProperty ||
-                  (lastProperty.property.text.toLowerCase() !== name ||
-                   lastProperty.colorType !== "compat")) {
+              if (!lastProperty 
+                  || (lastProperty.property.text.toLowerCase() !== name 
+                  || lastProperty.colorType !== "compat")
+              ) {
                 reporter.report("Fallback " + name +
                                     " (hex or RGB) should precede " +
                                     colorType + " " + name + ".",
@@ -1370,8 +1381,9 @@ CSSLint.addRule({
 
     // count how many times "float" is used
     parser.addListener("property", function(event) {
-      if (event.property.text.toLowerCase() === "float" &&
-          event.value.text.toLowerCase() !== "none") {
+      if (event.property.text.toLowerCase() === "float" 
+          && event.value.text.toLowerCase() !== "none"
+      ) {
         count++;
       }
     });
@@ -1485,7 +1497,8 @@ CSSLint.addRule({
 
     parser.addListener("property", function(event) {
       if (/\-(moz|o|webkit)(?:\-(?:linear|radial))\-gradient/i.test(
-              event.value)) {
+              event.value)
+      ) {
         gradients[RegExp.$1] = 1;
       } else if (/\-webkit\-gradient/i.test(event.value)) {
         gradients.oldWebkit = 1;
@@ -1801,8 +1814,8 @@ CSSLint.addRule({
     function endRule() {
       if (lastRule) {
         if (lastRule.outline) {
-          if (lastRule.selectors.toString().toLowerCase().indexOf(":focus") ===
-              -1) {
+          if (lastRule.selectors.toString().toLowerCase().indexOf(":focus") ===-1
+          ) {
             reporter.report("Outlines should only be modified using :focus.",
                             lastRule.line, lastRule.col, rule);
           } else if (lastRule.propCount === 1) {
@@ -1826,8 +1839,9 @@ CSSLint.addRule({
 
       if (lastRule) {
         lastRule.propCount++;
-        if (name === "outline" &&
-            (value.toString() === "none" || value.toString() === "0")) {
+        if (name === "outline" 
+            && (value.toString() === "none" || value.toString() === "0")
+        ) {
           lastRule.outline = true;
         }
       }
@@ -1982,8 +1996,9 @@ CSSLint.addRule({
         for (j = 0; j < selector.parts.length; j++) {
           part = selector.parts[j];
           if (part.type === parser.SELECTOR_PART_TYPE) {
-            if (part.elementName &&
-                /h[1-6]/.test(part.elementName.toString()) && j > 0) {
+            if (part.elementName 
+                && /h[1-6]/.test(part.elementName.toString()) && j > 0
+            ) {
               reporter.report("Heading (" + part.elementName +
                                   ") should not be qualified.",
                               part.line, part.col, rule);
@@ -2518,8 +2533,9 @@ CSSLint.addRule({
           if (!selectorContainsClassOrId) {
             for (k = 0; k < part.modifiers.length; k++) {
               modifier = part.modifiers[k];
-              if (modifier.type === "attribute" &&
-                  (!part.elementName || part.elementName === "*")) {
+              if (modifier.type === "attribute" 
+                  && (!part.elementName || part.elementName === "*")
+              ) {
                 reporter.report(rule.desc, part.line, part.col, rule);
               }
             }
@@ -2701,8 +2717,9 @@ CSSLint.addRule({
       var parts = event.value.parts, i = 0, len = parts.length;
 
       while (i < len) {
-        if ((parts[i].units || parts[i].type === "percentage") &&
-            parts[i].value === 0 && parts[i].type !== "time") {
+        if ((parts[i].units || parts[i].type === "percentage") 
+            && parts[i].value === 0 && parts[i].type !== "time"
+        ) {
           reporter.report("Values of 0 shouldn't have units specified.",
                           parts[i].line, parts[i].col, rule);
         }

@@ -49,9 +49,10 @@ CSSLint.addRule({
                 colorType = RegExp.$1.toUpperCase();
               }
 
-              if (!lastProperty ||
-                  (lastProperty.property.text.toLowerCase() !== name ||
-                   lastProperty.colorType !== "compat")) {
+              if (!lastProperty 
+                  || (lastProperty.property.text.toLowerCase() !== name 
+                  || lastProperty.colorType !== "compat")
+              ) {
                 reporter.report("Fallback " + name +
                                     " (hex or RGB) should precede " +
                                     colorType + " " + name + ".",

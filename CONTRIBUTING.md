@@ -8,9 +8,9 @@ A CLA is a document that specifies how a project is allowed to use your code. We
 
 When you make a contribution to the CSS Lint project, you agree:
 
-* The code you wrote is your original work (you own the copyright) or you otherwise have the right to submit the work.
-* To grant the CSS Lint project a nonexclusive, irrevocable license to use your submitted code in any way.
-* You are capable of granting these rights for the contribution.
+-   The code you wrote is your original work (you own the copyright) or you otherwise have the right to submit the work.
+-   To grant the CSS Lint project a nonexclusive, irrevocable license to use your submitted code in any way.
+-   You are capable of granting these rights for the contribution.
 
 By submitting a fix to CSS Lint you agree to the above statements.
 
@@ -28,13 +28,13 @@ body size, race, ethnicity, age, religion, or nationality.
 
 Examples of unacceptable behavior by participants include:
 
-* The use of sexualized language or imagery
-* Personal attacks
-* Trolling or insulting/derogatory comments
-* Public or private harassment
-* Publishing other's private information, such as physical or electronic
-  addresses, without explicit permission
-* Other unethical or unprofessional conduct
+-   The use of sexualized language or imagery
+-   Personal attacks
+-   Trolling or insulting/derogatory comments
+-   Public or private harassment
+-   Publishing other's private information, such as physical or electronic
+    addresses, without explicit permission
+-   Other unethical or unprofessional conduct
 
 Project maintainers have the right and responsibility to remove, edit, or
 reject comments, commits, code, wiki edits, issues, and other contributions
@@ -57,7 +57,6 @@ is deemed necessary and appropriate to the circumstances. Maintainers are
 obligated to maintain confidentiality with regard to the reporter of an
 incident.
 
-
 This Code of Conduct is adapted from the [Contributor Covenant][homepage],
 version 1.3.0, available at
 [http://contributor-covenant.org/version/1/3/0/][version]
@@ -67,6 +66,6 @@ version 1.3.0, available at
 
 # Contributing technically
 
-* Check out the [Contributing wiki](https://github.com/CSSLint/csslint/wiki/Contributing) and [Developer Guidelines](https://github.com/CSSLint/csslint/wiki/Developer-Guide) first
+-   Check out the [Contributing wiki](https://github.com/CSSLint/csslint/wiki/Contributing) and [Developer Guidelines](https://github.com/CSSLint/csslint/wiki/Developer-Guide) first
 
-* To add properties that CSSLint recognizes, submit a patch to [CSSLint/parser-lib](https://github.com/CSSLint/parser-lib)
+-   To add properties that CSSLint recognizes, submit a patch to [CSSLint/parser-lib](https://github.com/CSSLint/parser-lib)

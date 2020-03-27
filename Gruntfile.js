@@ -3,15 +3,15 @@
 "use strict";
 
 module.exports = function(grunt) {
-  // Force use of Unix newlines
-  grunt.util.linefeed = "\n";
+    // Force use of Unix newlines
+    grunt.util.linefeed = "\n";
 
-  // Project configuration.
-  grunt.initConfig({
-    // Metadata.
-    pkg : grunt.file.readJSON("package.json"),
-    banner :
-        "/*!\n" +
+    // Project configuration.
+    grunt.initConfig({
+        // Metadata.
+        pkg: grunt.file.readJSON("package.json"),
+        banner:
+            "/*!\n" +
             "CSSLint v<%= pkg.version %>\n" +
             "Copyright (c) <%= grunt.template.today('yyyy') %> Nicole Sullivan and Nicholas C. Zakas. All rights reserved.\n" +
             "\n" +
@@ -33,134 +33,161 @@ module.exports = function(grunt) {
             "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n" +
             "THE SOFTWARE.\n\n" +
             "*/\n",
-    build_dir : "dist",
-    // Parser lib copy for versions that can't use requirejs
-    parserlib : "node_modules/parserlib/dist/parserlib.js",
-    // clone copy for versions that can't use requirejs
-    clone : "node_modules/clone/clone.js",
-    // Core CSSLint files used by most versions
-    csslint_files : [
-      "src/core/CSSLint.js", "src/core/*.js", "src/rules/*.js",
-      "src/formatters/*.js"
-    ],
-    // Core fileset used by most versions
-    core_files : [ "<%= parserlib %>", "<%= clone %>", "<%= csslint_files %>" ],
-
-    // Task configuration.
-    clean : {dist : "<%= build_dir %>"},
-
-    changelog : {dest : "CHANGELOG"},
-
-    concat : {
-      core : {
-        options : {
-          banner : "<%= banner %>\n" +
-                       "var CSSLint = (function(){\n" +
-                       // Hack for using the node version of parserlib and clone
-                       "  var module = module || {},\n" +
-                       "      exports = exports || {};\n\n",
-          footer : "\nreturn CSSLint;\n})();"
-        },
-        src : [ "<%= core_files %>" ],
-        dest : "<%= build_dir %>/csslint.js"
-      }, // Build environment workers
-      rhino : {
-        src : [
-          "<%= concat.core.dest %>", "src/cli/common.js", "src/cli/rhino.js"
+        build_dir: "dist",
+        // Parser lib copy for versions that can't use requirejs
+        parserlib: "node_modules/parserlib/dist/parserlib.js",
+        // clone copy for versions that can't use requirejs
+        clone: "node_modules/clone/clone.js",
+        // Core CSSLint files used by most versions
+        csslint_files: [
+            "src/core/CSSLint.js",
+            "src/core/*.js",
+            "src/rules/*.js",
+            "src/formatters/*.js"
         ],
-        dest : "<%= build_dir %>/csslint-rhino.js"
-      },
-      node : {
-        options : {
-          banner : "<%= banner %>" +
-                       "var clone = require('clone');\n" +
-                       "var parserlib = require('parserlib');\n",
-          footer : "\nexports.CSSLint = CSSLint;"
-        },
-        src : "<%= csslint_files %>",
-        dest : "<%= build_dir %>/csslint-node.js"
-      },
-      node_cli : {
-        options : {banner : "#!/usr/bin/env node\n<%= banner %>"},
-        src : [ "src/cli/common.js", "src/cli/node.js" ],
-        dest : "<%= build_dir %>/cli.js"
-      },
-      tests : {
-        src : [ "tests/**/*.js", "!tests/all-rules.js" ],
-        dest : "<%= build_dir %>/csslint-tests.js"
-      },
-      worker : {
-        options : {
-          banner : "<%= banner %>" +
-                       // Hack for using the node version of parserlib
-                       "var exports = exports || {};\n"
-        },
-        src : [ "<%= core_files %>", "src/worker/*.js" ],
-        dest : "<%= build_dir %>/csslint-worker.js"
-      },
-      wsh : {
-        src : [
-          "<%= concat.core.dest %>", "src/cli/common.js", "src/cli/wsh.js"
+        // Core fileset used by most versions
+        core_files: [
+            "<%= parserlib %>",
+            "<%= clone %>",
+            "<%= csslint_files %>"
         ],
-        dest : "<%= build_dir %>/csslint-wsh.js"
-      }
-    },
 
-    includereplace : {
-      dist : {
-        options : {
-          // Global variables available in all files
-          globals : {VERSION : "<%= pkg.version %>"},
-          prefix : "@",
-          suffix : "@"
+        // Task configuration.
+        clean: { dist: "<%= build_dir %>" },
+
+        changelog: { dest: "CHANGELOG" },
+
+        concat: {
+            core: {
+                options: {
+                    banner:
+                        "<%= banner %>\n" +
+                        "var CSSLint = (function(){\n" +
+                        // Hack for using the node version of parserlib and clone
+                        "  var module = module || {},\n" +
+                        "      exports = exports || {};\n\n",
+                    footer: "\nreturn CSSLint;\n})();"
+                },
+                src: ["<%= core_files %>"],
+                dest: "<%= build_dir %>/csslint.js"
+            }, // Build environment workers
+            rhino: {
+                src: [
+                    "<%= concat.core.dest %>",
+                    "src/cli/common.js",
+                    "src/cli/rhino.js"
+                ],
+                dest: "<%= build_dir %>/csslint-rhino.js"
+            },
+            node: {
+                options: {
+                    banner:
+                        "<%= banner %>" +
+                        "var clone = require('clone');\n" +
+                        "var parserlib = require('parserlib');\n",
+                    footer: "\nexports.CSSLint = CSSLint;"
+                },
+                src: "<%= csslint_files %>",
+                dest: "<%= build_dir %>/csslint-node.js"
+            },
+            node_cli: {
+                options: { banner: "#!/usr/bin/env node\n<%= banner %>" },
+                src: ["src/cli/common.js", "src/cli/node.js"],
+                dest: "<%= build_dir %>/cli.js"
+            },
+            tests: {
+                src: ["tests/**/*.js", "!tests/all-rules.js"],
+                dest: "<%= build_dir %>/csslint-tests.js"
+            },
+            worker: {
+                options: {
+                    banner:
+                        "<%= banner %>" +
+                        // Hack for using the node version of parserlib
+                        "var exports = exports || {};\n"
+                },
+                src: ["<%= core_files %>", "src/worker/*.js"],
+                dest: "<%= build_dir %>/csslint-worker.js"
+            },
+            wsh: {
+                src: [
+                    "<%= concat.core.dest %>",
+                    "src/cli/common.js",
+                    "src/cli/wsh.js"
+                ],
+                dest: "<%= build_dir %>/csslint-wsh.js"
+            }
         },
-        files : [ {
-          expand : true,
-          cwd : "<%= build_dir %>/",
-          src : "**/*",
-          dest : "<%= build_dir %>/"
-        } ]
-      }
-    },
 
-    jshint : {
-      options : {jshintrc : ".jshintrc"},
-      gruntfile : {src : [ "Gruntfile.js", "tasks/*.js" ]},
-      core : {src : "src/**/*.js"},
-      demo : {src : "demos/*.js"},
-      tests : {options : {jshintrc : "tests/.jshintrc"}, src : "tests/**/*.js"}
-    },
+        includereplace: {
+            dist: {
+                options: {
+                    // Global variables available in all files
+                    globals: { VERSION: "<%= pkg.version %>" },
+                    prefix: "@",
+                    suffix: "@"
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: "<%= build_dir %>/",
+                        src: "**/*",
+                        dest: "<%= build_dir %>/"
+                    }
+                ]
+            }
+        },
 
-    watch : {
-      gruntfile : {files : "<%= jshint.gruntfile.src %>", tasks : "jshint"},
-      src : {files : "<%= jshint.all.src %>", tasks : "jshint:core"},
-      lib_test : {files : "<%= jshint.tests.src %>", tasks : "jshint:tests"}
-    },
+        jshint: {
+            options: { jshintrc: ".jshintrc" },
+            gruntfile: { src: ["Gruntfile.js", "tasks/*.js"] },
+            core: { src: "src/**/*.js" },
+            demo: { src: "demos/*.js" },
+            tests: {
+                options: { jshintrc: "tests/.jshintrc" },
+                src: "tests/**/*.js"
+            }
+        },
 
-    yuitest : {tests : {src : [ [ "tests/**/*.js", "!tests/testrunner.js" ] ]}},
+        watch: {
+            gruntfile: {
+                files: "<%= jshint.gruntfile.src %>",
+                tasks: "jshint"
+            },
+            src: { files: "<%= jshint.all.src %>", tasks: "jshint:core" },
+            lib_test: {
+                files: "<%= jshint.tests.src %>",
+                tasks: "jshint:tests"
+            }
+        },
 
-    test_rhino :
-        {tests : {src : [ "<%= concat.tests.dest %>", "tests/all-rules.js" ]}}
-  });
+        yuitest: {
+            tests: { src: [["tests/**/*.js", "!tests/testrunner.js"]] }
+        },
 
-  // Load any grunt plugins found in package.json.
-  require("load-grunt-tasks")(grunt, {scope : "devDependencies"});
-  require("time-grunt")(grunt);
+        test_rhino: {
+            tests: { src: ["<%= concat.tests.dest %>", "tests/all-rules.js"] }
+        }
+    });
 
-  // Load custom tasks
-  grunt.loadTasks("tasks");
+    // Load any grunt plugins found in package.json.
+    require("load-grunt-tasks")(grunt, { scope: "devDependencies" });
+    require("time-grunt")(grunt);
 
-  // Default task.
-  grunt.registerTask("default", [ "test" ]);
+    // Load custom tasks
+    grunt.loadTasks("tasks");
 
-  grunt.registerTask("build", [ "clean", "concat", "includereplace" ]);
+    // Default task.
+    grunt.registerTask("default", ["test"]);
 
-  // Alias for
-  grunt.registerTask("dist", "build");
+    grunt.registerTask("build", ["clean", "concat", "includereplace"]);
 
-  // Testing
-  grunt.registerTask("test", [ "build", "jshint", "yuitest" ]);
-  grunt.registerTask("rhino", [ "build", "jshint", "test_rhino" ]);
+    // Alias for
+    grunt.registerTask("dist", "build");
 
-  grunt.registerTask("release", [ "default", "changelog" ]);
+    // Testing
+    grunt.registerTask("test", ["build", "jshint", "yuitest"]);
+    grunt.registerTask("rhino", ["build", "jshint", "test_rhino"]);
+
+    grunt.registerTask("release", ["default", "changelog"]);
 };
